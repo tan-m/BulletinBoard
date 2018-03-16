@@ -1,24 +1,46 @@
 import java.rmi.Naming;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Client {
 
   //Constructor to connect to the Server with the IPAndPort
-  public Client(IPAndPort ipPort) {
-    Server server = (Server) Naming.lookup (ipPort + "/Server");
+  public Client() {
+
+
   }
 
-  try {
-
-    String ip = "127.0.0.1";
-    int port = Integer.parseInt(args[1]);
-
-    new ClientPingThread(server).start();
-    boolean joinstatus = server.join(ip, port);
-    System.out.println("join status :" + joinstatus);
-
-    Thread.sleep(300);
-
-  }catch (Exception e) {
-    System.out.println("Client bug: " + e);
+  List<String> getServerList() {
+    List<String> list = new ArrayList<>();
+    return list;
   }
+
+
+  void startClient() {
+
+    try {
+
+      String rmiIP = "127.0.0.1";
+      int rmiport = 4000;
+
+      ClientInterface server = (ClientInterface) Naming.lookup ( "//" + rmiIP+":"+rmiport+ "/Server");
+
+      ClientInterface server1 = (ClientInterface) Naming.lookup ( "//" + rmiIP+":"+rmiport+ "/Server1");
+
+      server.ping();
+      server1.ping();
+
+
+    }catch (Exception e) {
+      System.out.println("Client bug: " + e);
+    }
+
+  }
+
+  public static void main(String args[]) {
+    Client c = new Client();
+    c.startClient();
+  }
+
+
 }
