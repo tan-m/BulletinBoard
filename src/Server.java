@@ -5,10 +5,10 @@ import java.util.HashMap;
 
 public abstract class Server extends UnicastRemoteObject implements ClientInterface  {
 
-  protected HashMap<int,Article> articleHashMap = null;
+  protected HashMap<Integer,Article> articleHashMap = null;
     protected Server() throws RemoteException {
       super();
-      articleHashMap = new HashMap<int, Article>();
+      articleHashMap = new HashMap<Integer, Article>();
     }
 
     @Override

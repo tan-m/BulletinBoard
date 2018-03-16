@@ -3,6 +3,12 @@ import java.rmi.registry.Registry;
 
 public class StartServer {
     public static void main(String args[]) throws Exception {
+
+//        if (args.length != 2) {
+//            System.err.println("usage java <consistency> <number of servers>");
+//        }
+
+
         Server ser = new SequentialServer();
         Server ser1 = new SequentialServer();
 
