@@ -1,11 +1,14 @@
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
+import java.util.HashMap;
 
 public abstract class Server extends UnicastRemoteObject implements ClientInterface  {
 
+  protected HashMap<int,Article> articleHashMap = null;
     protected Server() throws RemoteException {
-        super();
+      super();
+      articleHashMap = new HashMap<int, Article>();
     }
 
     @Override
