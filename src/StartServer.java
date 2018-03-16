@@ -1,23 +1,41 @@
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.ArrayList;
+import java.util.List;
 
 public class StartServer {
     public static void main(String args[]) throws Exception {
 
-//        if (args.length != 2) {
-//            System.err.println("usage java <consistency> <number of servers>");
-//        }
+        if (args.length != 2) {
+            System.err.println("usage java <consistency> <number of servers>");
+        }
 
-
-        Server ser = new SequentialServer();
-        Server ser1 = new SequentialServer();
+        String consistency = args[0];
+        int numberOfServers = Integer.parseInt(args[1]);
 
         Registry localRegistry = LocateRegistry.createRegistry(4000);
-        localRegistry.bind("Server", ser);
-        localRegistry.bind("Server1", ser1);
+
+        List<Server> serverList = new ArrayList<>();
 
 
-        System.out.println("server started");
+        if (consistency.equals("sequential")) {
+
+            for (int i=0; i<numberOfServers; i++) {
+                serverList.add(new SequentialServer());
+
+            }
+
+//            Server coordinator = new SequentialCoordinator();
+
+            for(int i=0; i<numberOfServers; i++) {
+                localRegistry.bind("Server"+i, serverList.get(i));
+            }
+
+            System.out.println("server started");
+        }
+
+
+
 
     }
 }

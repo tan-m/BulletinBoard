@@ -23,7 +23,7 @@ public class Client {
       String rmiIP = "127.0.0.1";
       int rmiport = 4000;
 
-      ClientInterface server = (ClientInterface) Naming.lookup ( "//" + rmiIP+":"+rmiport+ "/Server");
+      ClientInterface server = (ClientInterface) Naming.lookup ( "//" + rmiIP+":"+rmiport+ "/Server0");
 
       ClientInterface server1 = (ClientInterface) Naming.lookup ( "//" + rmiIP+":"+rmiport+ "/Server1");
 
