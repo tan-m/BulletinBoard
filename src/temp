@@ -1,0 +1,13 @@
+import java.io.IOException;
+import java.util.*;
+import java.net.*;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+
+abstract public Class Server {
+  abstract boolean post (IPAndPort ipPort, Article article) 
+                                            throws RemoteException;
+  abstract boolean reply (IPAndPort ipPort, int parentID, Article article) 
+                                            throws RemoteException;
+}
+
