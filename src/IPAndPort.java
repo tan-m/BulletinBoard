@@ -2,7 +2,9 @@
  * Use case is to send the client, the Server IP and Port for connection
  */
 
-public class IPAndPort {
+import java.io.Serializable;
+
+public class IPAndPort implements Serializable {
     String ip;
     int port;
     IPAndPort (String ip, int port) {

@@ -18,20 +18,27 @@ public class StartServer {
         List<Server> serverList = new ArrayList<>();
 
 
+        List<String> serverNameList = new ArrayList<>();
+
+        for (int i=0; i<numberOfServers; i++) {
+            serverNameList.add("Server"+i);
+        }
+
         if (consistency.equals("sequential")) {
 
-            for (int i=0; i<numberOfServers; i++) {
+            // Server0 is the coordinator
+            serverList.add( new SequentialCoordinator(serverNameList));
+            for (int i=1; i<numberOfServers; i++) {
                 serverList.add(new SequentialServer());
 
             }
 
-//            Server coordinator = new SequentialCoordinator();
-
             for(int i=0; i<numberOfServers; i++) {
-                localRegistry.bind("Server"+i, serverList.get(i));
+                                    // "Server0" etc
+                localRegistry.bind(serverNameList.get(i), serverList.get(i));
             }
 
-            System.out.println("server started");
+            System.out.println("servers started");
         }
 
 

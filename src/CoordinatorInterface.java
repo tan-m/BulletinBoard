@@ -5,5 +5,6 @@ import java.util.List;
 public interface CoordinatorInterface extends Remote {
 
     int getNextID() throws RemoteException;
+    void replicate(Article a) throws RemoteException;
 
 }

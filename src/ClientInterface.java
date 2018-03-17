@@ -8,9 +8,8 @@ public interface ClientInterface extends Remote {
     List<String> read (IPAndPort ipPort, List<Integer> articleList)
                                             throws RemoteException;
     Article choose (IPAndPort ipPort, int id) throws RemoteException;
-    boolean post (IPAndPort ipPort, Article article) throws RemoteException;
-    boolean reply (IPAndPort ipPort, int parentID, Article article) 
-                                            throws RemoteException;
+    boolean post (String title, String content) throws RemoteException;
+    boolean reply (int parentID, String content) throws RemoteException;
 
 
 }

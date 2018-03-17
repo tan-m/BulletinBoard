@@ -1,20 +1,17 @@
 import java.rmi.RemoteException;
 import java.util.HashMap;
 
-public abstract class Coordinator extends Server {
+public abstract class Coordinator extends Server implements CoordinatorInterface {
 
-  protected HashMap<Integer,Article> articleHashMap = null;
+
+    int counter=0;
     protected Coordinator() throws RemoteException {
       super();
-      articleHashMap = new HashMap<Integer, Article>();
     }
 
     // Implement the uniqueID requested by the server
-    public int getNextID() {
-
-      System.out.println("hi");
-      return 1;
-
+    public synchronized int getNextID() {
+      return counter++;
     }
 
 }
