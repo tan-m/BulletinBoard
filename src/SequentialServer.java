@@ -22,13 +22,9 @@ class SequentialServer extends Server  {
         try {
             // coordinator will always be Server0
             CoordinatorInterface coordinator = (CoordinatorInterface) Naming.lookup ( "//" + rmiIP+":"+rmiPort+ "/Server0");
-            System.out.println("Here");
             coordinator.replicate(article);
 
-            System.out.println("article list is " + articleHashMap);
-
             return true;
-
         } catch (NotBoundException e) {
             e.printStackTrace();
         } catch (MalformedURLException e) {

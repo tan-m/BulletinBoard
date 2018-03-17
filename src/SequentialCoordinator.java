@@ -19,14 +19,23 @@ class SequentialCoordinator extends Coordinator{
         this.serverList = list;
     }
 
+    public boolean post(Article article) throws RemoteException {
+
+        this.replicate(article);
+        return true;
+
+    }
+
     @Override
     public boolean post(String title, String content) throws RemoteException {
-        return false;
+        Article article = new Article(title, content);
+        return  post(article);
     }
 
     @Override
     public boolean reply(int parentID, String content) throws RemoteException {
-        return false;
+        Article article = new Article(content, parentID);
+        return post(article);
     }
 
     @Override
@@ -34,28 +43,16 @@ class SequentialCoordinator extends Coordinator{
 
         a.uID = getNextID();
 
-        System.out.println("id is " + a.uID);
-        System.out.println("list " + serverList);
-
         for (String s : serverList) {
             if (s.equals("Server0")) {
 
-                articleHashMap.put(a.uID, a);
-                if (a.parentID != -1) {
-                    Article parent = articleHashMap.get(a.parentID);
-                    parent.childList.add(a.uID);
-                }
-
-                System.out.println("primary updated");
+                // local call
+                update(a);
 
             } else {
                 try {
 
-                    System.out.println("in coordinator. the string is");
-
                     ServerToServerInterface server = (ServerToServerInterface) Naming.lookup ( "//" + rmiIP+":"+rmiPort+ "/" + s);
-                    System.out.println("error here ");
-
                     server.update(a);
 
                 } catch (NotBoundException e) {

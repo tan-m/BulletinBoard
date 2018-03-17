@@ -46,7 +46,7 @@ public class Client {
       if( choice > 0 && choice < 5) 
         switch(choice) {
           case 1: // post
-            server = 1;
+            
             serverList.get(server).post("Chilling", "wassup ");
             System.out.println("Posting a new Article");
             break;
