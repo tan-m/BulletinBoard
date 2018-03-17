@@ -8,6 +8,7 @@ public class TestServer {
   public static void main(String args[]) throws Exception {
     if (args.length != 2) {
       System.err.println("usage java <consistency> <number of servers>");
+      System.exit(0);
     }
 
     String consistencyProtocol = args[0].toLowerCase();
@@ -18,6 +19,7 @@ public class TestServer {
 
     if (consistencyProtocol.equals("sequential")) {
       Server coordinator = SequentialCoordinator.getInstance(nServers);
+      serverList.add(coordinator);
       for (int i=1; i<nServers; i++) {
         serverList.add(new SequentialServer(nServers));
       }
