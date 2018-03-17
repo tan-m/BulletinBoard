@@ -16,20 +16,23 @@ public class TestServer {
     Registry localRegistry = LocateRegistry.createRegistry(4000);
     List<Server> serverList = new ArrayList<Server>();
 
+  //Test the consistency Protocols
+    if (consistencyProtocol.equals("quorum")) {
 
-    if (consistencyProtocol.equals("sequential")) {
+    } else if (consistencyProtocol.equals("localwrite")) {
+
+    } else {
       Server coordinator = SequentialCoordinator.getInstance(nServers);
       serverList.add(coordinator);
       for (int i=1; i<nServers; i++) {
         serverList.add(new SequentialServer(nServers));
       }
-
-      for(int i=0; i<nServers; i++) {
-        localRegistry.bind("Server"+i, serverList.get(i));
-      }
-
-      System.out.println(nServers-1 + " Server(s) and 1 Coordinator Server "+
-                                  "started");
     }
+
+    for(int i=0; i<nServers; i++) {
+      localRegistry.bind("Server"+i, serverList.get(i));
+    }
+    System.out.println(nServers-1 + " Server(s) and 1 Coordinator Server "+
+                                "started");
   }
 }
