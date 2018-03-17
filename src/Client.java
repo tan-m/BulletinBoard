@@ -46,7 +46,7 @@ public class Client {
       if( choice > 0 && choice < 5) 
         switch(choice) {
           case 1: // post
-            
+
             serverList.get(server).post("Chilling", "wassup ");
             System.out.println("Posting a new Article");
             break;
@@ -69,6 +69,21 @@ public class Client {
     }
   }
 
+  void test () {
+
+    try {
+
+
+      serverList.get(0).post("Chilling", "wassup ");
+      System.out.println("returned from post call");
+
+
+    } catch (RemoteException e) {
+      e.printStackTrace();
+    }
+
+  }
+
 
 
 
@@ -81,15 +96,20 @@ public class Client {
     }
     Client c = new Client(Integer.parseInt(args[0]));
     c.startClient();
-    try {
-      c.performAction();
-    } catch(InterruptedException e) {
-      e.printStackTrace();
-    } catch(InputMismatchException e) {
-      System.out.println("Client terminating because of invalid input");
-    } catch (RemoteException e) {
-      e.printStackTrace();
-    }
+
+    c.test();
+
+//    try {
+//      c.performAction();
+//    } catch(InterruptedException e) {
+//      e.printStackTrace();
+//    } catch(InputMismatchException e) {
+//      System.out.println("Client terminating because of invalid input");
+//    } catch (RemoteException e) {
+//      e.printStackTrace();
+//    }
+
+
   }
 
 }

@@ -9,8 +9,19 @@ public abstract class Server extends UnicastRemoteObject implements  ClientInter
 //  protected List<Article> articleList = null;
     protected Map<Integer,Article> articleHashMap = null;
 
+    String rmiIP = "127.0.0.1";
+    int rmiPort = 4000;
+
     protected Server() throws RemoteException {
+        super();
+        articleHashMap = new HashMap<>();
+    }
+
+
+    protected Server(String rmiIP, int rmiPort) throws RemoteException {
       super();
+      this.rmiIP = rmiIP;
+      this.rmiPort = rmiPort;
       articleHashMap = new HashMap<>();
     }
 
@@ -24,9 +35,6 @@ public abstract class Server extends UnicastRemoteObject implements  ClientInter
     @Override
     public void update(Article a) throws RemoteException {
 
-        System.out.println("article is " + a);
-
-        System.out.println("in update");
         articleHashMap.put(a.uID, a);
         if (a.parentID != -1) {
             Article parent = articleHashMap.get(a.parentID);

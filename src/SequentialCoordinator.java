@@ -7,8 +7,7 @@ import java.util.List;
 class SequentialCoordinator extends Coordinator{
 
     List<String> serverList;
-    String rmiIP = "127.0.0.1";
-    int rmiPort = 4000;
+
 
     protected SequentialCoordinator() throws RemoteException {
         super();

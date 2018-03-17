@@ -5,17 +5,10 @@ import java.rmi.RemoteException;
 
 class SequentialServer extends Server  {
 
-    String rmiIP = "127.0.0.1";
-    int rmiPort = 4000;
     protected SequentialServer() throws RemoteException {
         super();
     }
 
-    protected SequentialServer(String rmiIP, int rmiPort) throws RemoteException {
-        super();
-        this.rmiIP = rmiIP;
-        this.rmiPort = rmiPort;
-    }
 
     public boolean post(Article article) throws RemoteException {
 
