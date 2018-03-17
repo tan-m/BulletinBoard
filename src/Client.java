@@ -97,17 +97,17 @@ public class Client {
     Client c = new Client(Integer.parseInt(args[0]));
     c.startClient();
 
-    c.test();
+   // c.test();
 
-//    try {
-//      c.performAction();
-//    } catch(InterruptedException e) {
-//      e.printStackTrace();
-//    } catch(InputMismatchException e) {
-//      System.out.println("Client terminating because of invalid input");
-//    } catch (RemoteException e) {
-//      e.printStackTrace();
-//    }
+    try {
+      c.performAction();
+    } catch(InterruptedException e) {
+      e.printStackTrace();
+    } catch(InputMismatchException e) {
+      System.out.println("Client terminating because of invalid input");
+    } catch (RemoteException e) {
+      e.printStackTrace();
+    }
 
 
   }

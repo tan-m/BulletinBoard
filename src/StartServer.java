@@ -24,7 +24,6 @@ public class StartServer {
         }
 
 
-
         if (consistency.equals("sequential")) {
 
             // Server0 is the coordinator
@@ -43,19 +42,19 @@ public class StartServer {
 
         } else if (consistency.equals("readyourwrite")) {
 
-            for(int i=0; i<numberOfServers; i++) {
-
+            // Server0 is the coordinator
+            serverList.add( new ReadYourWriteCoordinator(rmiIP, rmiPort, serverNameList.get(0), serverNameList ));
+            for (int i=1; i<numberOfServers; i++) {
                 serverList.add(new ReadYourWriteServer(rmiIP, rmiPort, serverNameList.get(i), serverNameList ));
+            }
+
+            for(int i=0; i<numberOfServers; i++) {
                 localRegistry.bind(serverNameList.get(i), serverList.get(i));
             }
 
             System.out.println("servers started");
 
         }
-
-
-
-
 
     }
 }
