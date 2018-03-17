@@ -22,11 +22,11 @@ public class SequentialCoordinator extends Coordinator {
     return seqCoord;
   }
 
-  public boolean post(Article article) throws RemoteException{
+  public boolean post(String title, String content) throws RemoteException{
     return false;
   }
 
-  public boolean reply(int parentID, Article article) 
+  public boolean reply(int parentID, String content) 
                   throws RemoteException {
     return false;
   }

@@ -7,12 +7,12 @@ class SequentialServer extends Server{
     }
 
     @Override
-    public boolean post(Article article) throws RemoteException {
-        return false;
+    public boolean post(String title, String comment) throws RemoteException {
+      return false;
     }
 
     @Override
-    public boolean reply(int parentID, Article article) throws RemoteException {
-        return false;
+    public boolean reply(int parentID, String comment) throws RemoteException {
+      return false;
     }
 }
