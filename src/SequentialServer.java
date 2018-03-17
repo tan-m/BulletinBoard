@@ -2,8 +2,8 @@ import java.rmi.RemoteException;
 
 class SequentialServer extends Server{
 
-    protected SequentialServer() throws RemoteException {
-        super();
+    protected SequentialServer(int nServers) throws RemoteException {
+        super(nServers);
     }
 
     @Override

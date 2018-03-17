@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Client {
 
-  //Constructor to connect to the Server with the IPAndPort
+  //Constructor to connect to the Server 
   public Client() {
 
 
@@ -24,12 +24,10 @@ public class Client {
       int rmiport = 4000;
 
       ClientInterface server = (ClientInterface) Naming.lookup ( "//" + rmiIP+":"+rmiport+ "/Server0");
-
       ClientInterface server1 = (ClientInterface) Naming.lookup ( "//" + rmiIP+":"+rmiport+ "/Server1");
 
       server.ping();
       server1.ping();
-
 
     }catch (Exception e) {
       System.out.println("Client bug: " + e);
@@ -41,6 +39,5 @@ public class Client {
     Client c = new Client();
     c.startClient();
   }
-
 
 }
