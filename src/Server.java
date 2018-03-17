@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.Stack;
+import java.util.Iterator;
 
 public abstract class Server extends UnicastRemoteObject implements 
                              ClientInterface, ServerToServerInterface {
@@ -44,6 +46,9 @@ public abstract class Server extends UnicastRemoteObject implements
     public List<String> read() throws RemoteException {
       int size = articleHashMap.size();
       List<String> titleList = new LinkedList<String>();
+      List<String> dupTitle = new LinkedList<String>();
+      boolean[] visited = new boolean[size];
+      Stack<Integer> stack = new Stack<>();
 
       for( int i=0; i < size; i++) {
         Article article = articleHashMap.get(i);
@@ -55,7 +60,27 @@ public abstract class Server extends UnicastRemoteObject implements
         titleList.add(title);
       }
 
-      return titleList;
+      //run DFS
+      int s = 0;
+      stack.push(s);
+      while(stack.empty() == false) {
+        s = stack.peek();
+        stack.pop();
+
+        if(visited[s] == false) {
+          dupTitle.add(titleList.get(s));
+          visited[s] = true;
+        }
+
+        Iterator<Integer> itr = articleHashMap.get(s).childList.iterator();
+        while (itr.hasNext()) {
+          int v = itr.next();
+          if( !visited[v])
+            stack.push(v);
+        }
+      }
+
+      return dupTitle;
     }
 
   // Choose method takes an ID that returns the article to the client
