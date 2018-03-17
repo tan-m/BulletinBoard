@@ -52,6 +52,4 @@ class SequentialServer extends Server  {
         return post(article);
     }
 
-
-
 }

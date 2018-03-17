@@ -58,9 +58,6 @@ class SequentialCoordinator extends Coordinator{
 
                     server.update(a);
 
-                    // TODO: 3/17/18 remove return
-                    //return;
-
                 } catch (NotBoundException e) {
                     e.printStackTrace();
                 } catch (MalformedURLException e) {

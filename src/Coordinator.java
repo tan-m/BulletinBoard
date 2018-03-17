@@ -3,7 +3,6 @@ import java.util.HashMap;
 
 public abstract class Coordinator extends Server implements CoordinatorInterface {
 
-
     int counter=0;
     protected Coordinator() throws RemoteException {
       super();

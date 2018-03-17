@@ -14,6 +14,7 @@ public abstract class Server extends UnicastRemoteObject implements  ClientInter
       articleHashMap = new HashMap<>();
     }
 
+
     @Override
     public void ping() {
         System.out.println("hi");
@@ -37,15 +38,17 @@ public abstract class Server extends UnicastRemoteObject implements  ClientInter
 
 
     @Override
-    public List<String> read(IPAndPort ipPort, List<Integer> articleList) throws RemoteException {
+    public List<String> read(List<Integer> articleList) throws RemoteException {
         return null;
     }
 
     @Override
-    public Article choose(IPAndPort ipPort, int id) throws RemoteException {
+    public Article choose(int id) throws RemoteException {
         return null;
     }
 
+
 // if methods from the interface are not implemented they need not be declared abstract here.
+
 
 }
