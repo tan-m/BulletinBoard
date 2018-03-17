@@ -20,19 +20,19 @@ public abstract class Server extends UnicastRemoteObject implements ClientInterf
     }
 
     @Override
-    public List<String> read(IPAndPort ipPort, List<Integer> articleList) throws RemoteException {
+    public List<String> read(List<Integer> articleList) throws RemoteException {
         return null;
     }
 
     @Override
-    public Article choose(IPAndPort ipPort, int id) throws RemoteException {
+    public Article choose(int id) throws RemoteException {
         return null;
     }
 
     @Override
-    abstract public boolean post(IPAndPort ipPort, Article article) throws RemoteException;
+    abstract public boolean post(Article article) throws RemoteException;
 
     @Override
-    abstract public boolean reply(IPAndPort ipPort, int parentID, Article article) throws RemoteException;
+    abstract public boolean reply(int parentID, Article article) throws RemoteException;
 
 }

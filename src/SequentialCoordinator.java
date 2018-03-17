@@ -22,11 +22,11 @@ public class SequentialCoordinator extends Coordinator {
     return seqCoord;
   }
 
-  public boolean post(IPAndPort ipPort, Article article) throws RemoteException{
+  public boolean post(Article article) throws RemoteException{
     return false;
   }
 
-  public boolean reply(IPAndPort ipPort, int parentID, Article article) 
+  public boolean reply(int parentID, Article article) 
                   throws RemoteException {
     return false;
   }

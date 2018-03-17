@@ -7,12 +7,12 @@ class SequentialServer extends Server{
     }
 
     @Override
-    public boolean post(IPAndPort ipPort, Article article) throws RemoteException {
+    public boolean post(Article article) throws RemoteException {
         return false;
     }
 
     @Override
-    public boolean reply(IPAndPort ipPort, int parentID, Article article) throws RemoteException {
+    public boolean reply(int parentID, Article article) throws RemoteException {
         return false;
     }
 }
