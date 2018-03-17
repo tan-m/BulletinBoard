@@ -3,7 +3,7 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
-class SequentialServer extends Server implements ServerToServerInterface {
+class SequentialServer extends Server  {
 
     String rmiIP = "127.0.0.1";
     int rmiPort = 4000;
@@ -16,21 +16,6 @@ class SequentialServer extends Server implements ServerToServerInterface {
         this.rmiIP = rmiIP;
         this.rmiPort = rmiPort;
     }
-
-    @Override
-    public void update(Article a) throws RemoteException {
-
-        System.out.println("article is " + a);
-
-        System.out.println("in update");
-        articleHashMap.put(a.uID, a);
-        if (a.parentID != -1) {
-            Article parent = articleHashMap.get(a.parentID);
-            parent.childList.add(a.uID);
-        }
-
-    }
-
 
     public boolean post(Article article) throws RemoteException {
 
