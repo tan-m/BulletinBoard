@@ -14,7 +14,7 @@ class SequentialServer extends Server  {
 
         try {
             // coordinator will always be Server0
-            CoordinatorInterface coordinator = (CoordinatorInterface) Naming.lookup ( "//" + rmiIP+":"+rmiPort+ "/Server0");
+            SequentialCoordinatorInterface coordinator = (SequentialCoordinatorInterface) Naming.lookup ( "//" + rmiIP+":"+rmiPort+ "/Server0");
             coordinator.replicate(article);
 
             return true;

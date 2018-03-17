@@ -1,3 +1,6 @@
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.List;
 
@@ -20,18 +23,42 @@ public class ReadYourWriteServer extends Server {
         return true;
     }
 
+    int getIdFromCoordinator() throws RemoteException, NotBoundException, MalformedURLException {
+        CoordinatorInterface coordinator = (CoordinatorInterface) Naming.lookup ( "//" + rmiIP+":"+rmiPort+ "/Server0");
+        return coordinator.getNextID();
+    }
 
     @Override
     public boolean post(String title, String content) throws RemoteException {
-        Article article = new Article(title, content);
-        return  post(article);
+        try {
+            int uID = getIdFromCoordinator();
+            Article article = new Article(title, content, uID, -1);
+            return  post(article);
+
+        } catch (NotBoundException e) {
+            e.printStackTrace();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
 
     }
 
     @Override
     public boolean reply(int parentId, String content) throws RemoteException {
-        Article article = new Article(content, parentId);
-        return post(article);
+        try {
+            int uID = getIdFromCoordinator();
+            Article article = new Article(null, content, uID, parentId);
+            return  post(article);
+
+        } catch (NotBoundException e) {
+            e.printStackTrace();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 
 }

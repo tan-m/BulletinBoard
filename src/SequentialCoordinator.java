@@ -4,7 +4,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.List;
 
-class SequentialCoordinator extends Coordinator{
+class SequentialCoordinator extends Coordinator implements SequentialCoordinatorInterface{
 
     List<String> serverList;
 

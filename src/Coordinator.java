@@ -8,6 +8,10 @@ public abstract class Coordinator extends Server implements CoordinatorInterface
       super();
     }
 
+    protected Coordinator(String rmiIP, int rmiPort) throws RemoteException {
+        super(rmiIP, rmiPort);
+    }
+
     // Implement the uniqueID requested by the server
     public synchronized int getNextID() {
       return counter++;

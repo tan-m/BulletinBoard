@@ -95,7 +95,7 @@ public class Client {
     c.startClient();
 
     try {
-      c.test();
+      //c.test();
       c.performAction();
     } catch(InterruptedException e) {
       e.printStackTrace();
