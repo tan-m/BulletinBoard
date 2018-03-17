@@ -22,7 +22,6 @@ public class Client {
       String rmiIP = "127.0.0.1";
       int rmiport = 4000;
 
-
       for(int i = 0 ; i < nServers; i++) 
         serverList.add( (ClientInterface) Naming.lookup ( "//" + rmiIP+":"+rmiport+ "/Server"+i));
     }catch (Exception e) {
@@ -46,8 +45,6 @@ public class Client {
       if( choice > 0 && choice < 5) 
         switch(choice) {
           case 1: // post
-
-            serverList.get(server).post("Chilling", "wassup ");
             System.out.println("Posting a new Article");
             break;
           case 2:
@@ -97,18 +94,16 @@ public class Client {
     Client c = new Client(Integer.parseInt(args[0]));
     c.startClient();
 
-    c.test();
-
-//    try {
-//      c.performAction();
-//    } catch(InterruptedException e) {
-//      e.printStackTrace();
-//    } catch(InputMismatchException e) {
-//      System.out.println("Client terminating because of invalid input");
-//    } catch (RemoteException e) {
-//      e.printStackTrace();
-//    }
-
+    try {
+      c.test();
+      c.performAction();
+    } catch(InterruptedException e) {
+      e.printStackTrace();
+    } catch(InputMismatchException e) {
+      System.out.println("Client terminating because of invalid input");
+    } catch (RemoteException e) {
+      e.printStackTrace();
+    }
 
   }
 
