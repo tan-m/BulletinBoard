@@ -12,6 +12,8 @@ public class StartServer {
 
         String consistency = args[0];
         int numberOfServers = Integer.parseInt(args[1]);
+        if( numberOfServers <= 1)
+          numberOfServers = 3;
         String rmiIP = "127.0.0.1";
         int rmiPort = 4000;
 

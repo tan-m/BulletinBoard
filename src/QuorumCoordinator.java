@@ -1,12 +1,15 @@
-import java.net.MalformedURLException;
+import java.util.List;
 import java.rmi.Naming;
+import java.util.Random;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.util.List;
+import java.net.MalformedURLException;
 
 class QuorumCoordinator extends Coordinator 
                         implements QuorumCoordinatorInterface{
-  int nServers;
+  int nServers, readQuorum, writeQuorum;
+  int[] readQList, writeQList;
+
   protected QuorumCoordinator() throws RemoteException {
     super();
   }
@@ -14,6 +17,12 @@ class QuorumCoordinator extends Coordinator
   protected QuorumCoordinator(int nServers) throws RemoteException {
     super();
     this.nServers = nServers;
+    readQuorum = (int)(0.66 * nServers + 1);
+    writeQuorum = (int)(nServers/2 + 1);
+    //
+    Random random = new Random();
+    readQList = random.ints(0,nServers).distinct().limit(readQuorum).toArray();
+    writeQList = random.ints(0,nServers).distinct().limit(writeQuorum).toArray();
   }
 
   public boolean post(Article article) throws RemoteException {
