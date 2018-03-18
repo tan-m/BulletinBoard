@@ -50,6 +50,8 @@ public abstract class Server extends UnicastRemoteObject implements
       LinkedList<Integer>queue = new LinkedList<Integer>();
       boolean[] visited = new boolean[size];
 
+      // A better way would be to add a field in Article class and then track 
+      // number of levels deep and tab them rather than run this for loop
       for( int i=0; i < size; i++) {
         Article article = articleHashMap.get(i);
         String content = null;
@@ -80,7 +82,6 @@ public abstract class Server extends UnicastRemoteObject implements
           if( !visited[v]) {
             visited[v] = true;
             queue.push(v);
-            //dupList.add(titleList.get(v));
           }
         }
       }

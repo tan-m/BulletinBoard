@@ -17,7 +17,7 @@ class QuorumCoordinator extends Coordinator
   protected QuorumCoordinator(int nServers) throws RemoteException {
     super();
     this.nServers = nServers;
-    readQuorum = (int)(0.66 * nServers + 1);
+    readQuorum = (int)( nServers/2 + 1);
     writeQuorum = (int)(nServers/2 + 1);
     //
     Random random = new Random();

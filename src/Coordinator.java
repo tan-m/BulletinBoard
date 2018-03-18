@@ -17,4 +17,7 @@ public abstract class Coordinator extends Server implements CoordinatorInterface
       return counter++;
     }
 
+    public synchronized int readID() {
+      return counter;
+    }
 }

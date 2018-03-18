@@ -12,10 +12,10 @@ CLASSES = \
 	StartServer.java \
 	IPAndPort.java \
 	Coordinator.java \
-	CoordinatorInterface.java \
-	TestClass.java
+	CoordinatorInterface.java 
 
 default: classes
+	$(JC) $(JFLAGS) *.java
 
 classes: $(CLASSES:.java=.class)
 
