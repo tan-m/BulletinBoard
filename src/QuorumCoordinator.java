@@ -65,12 +65,54 @@ class QuorumCoordinator extends Coordinator
   // Implement the consensusChoose
   public String consensusChoose(int id) throws RemoteException {
     String content = null;
+    int uID = readID();
+    //Check if the ID requesting is within bounds of ID
+    if(id > uID || id < 0 )
+      return null;
+
+    for( int i = 0 ; i < readQList.length; i++) {
+      int s = readQList[i];
+      if( s == 0 ) 
+        content = choose(id);
+      else 
+        try {
+          ServerToServerInterface server = (ServerToServerInterface) 
+          Naming.lookup ( "//" + rmiIP+":"+rmiPort+ "/Server" + s);
+          //server.localChoose(id);
+        } catch (NotBoundException e) {
+          e.printStackTrace();
+        } catch (MalformedURLException e) {
+          e.printStackTrace();
+        } catch( Exception e) {
+          System.out.println("Haven't updated the server yet");
+        }
+    } // end the read quorum
+
     return content;
   }
 
   // Implement the consensusRead
   public List<String> consensusRead() throws RemoteException {
     List<String> titleList = null;
+
+    for( int i = 0 ; i < readQList.length; i++) {
+      int s = readQList[i];
+      if( s == 0 ) 
+        titleList = read();
+      else 
+        try {
+          ServerToServerInterface server = (ServerToServerInterface) 
+          Naming.lookup ( "//" + rmiIP+":"+rmiPort+ "/Server" + s);
+          //List<String> tList = server.localRead();
+        } catch (NotBoundException e) {
+          e.printStackTrace();
+        } catch (MalformedURLException e) {
+          e.printStackTrace();
+        } catch( Exception e) {
+          System.out.println("Haven't updated the server yet");
+        }
+    } // end the read quorum
+
     return titleList;
   }
 

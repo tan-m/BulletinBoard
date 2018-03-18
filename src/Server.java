@@ -27,7 +27,6 @@ public abstract class Server extends UnicastRemoteObject implements
       articleHashMap = new HashMap<>();
     }
 
-    @Override
     public void update(Article a) throws RemoteException {
         System.out.println("article is " + a);
         System.out.println("in update");
@@ -96,4 +95,5 @@ public abstract class Server extends UnicastRemoteObject implements
         System.out.println("Attempting to access values outside scope");
       return content;
     }
+
 }
