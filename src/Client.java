@@ -45,16 +45,29 @@ public class Client {
       if( choice > 0 && choice < 5) 
         switch(choice) {
           case 1: // post
-            System.out.println("Posting a new Article");
+            System.out.println("Posting a new Article, enter a string, 1-10"+
+            " characters are title, rest are content");
+            scanner = new Scanner(System.in);
+            String article = scanner.nextLine();
+            serverList.get(server).post(article.substring(0,10), 
+                                        article.substring(10));
             break;
           case 2:
-            System.out.println("Reading an article");
+            System.out.println("Reading list of articles");
             break;
           case 3:
-            System.out.println("Choosing an article");
+            System.out.println("Choosing an article, enter a positive integer"+
+              " that is within bounds");
+            int printArticle = scanner.nextInt();
+            String content = serverList.get(server).choose(printArticle);
+            System.out.println(content);
             break;
           case 4:
-            System.out.println("Replying to an article");
+            System.out.println("Replying to an article, enter a number and a"+
+            " string, which is the parent and content of the reply" );
+            int parent = scanner.nextInt();
+            content = scanner.nextLine();
+            serverList.get(server).reply(parent, content);
             break;
       }
 

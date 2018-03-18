@@ -52,7 +52,7 @@ public abstract class Server extends UnicastRemoteObject implements
 
       for( int i=0; i < size; i++) {
         Article article = articleHashMap.get(i);
-        String title = article.title;
+        String title = i + ". " + article.title;
         while( article.parentID != -1) {
           title = "\t"+title;
           article = articleHashMap.get(article.parentID);
