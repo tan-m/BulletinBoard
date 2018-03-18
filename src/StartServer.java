@@ -25,10 +25,15 @@ public class StartServer {
             serverNameList.add("Server"+i);
         }
 
+      //Instantiate the servers and coordinators based on consistency protocols
         if (consistency.equals("quorum")) {
           serverList.add( new QuorumCoordinator(numberOfServers));
-          for (int i=1; i<numberOfServers; i++) 
+          localRegistry.bind(serverNameList.get(0), serverList.get(0));
+
+          for (int i=1; i<numberOfServers; i++) {
             serverList.add(new QuorumServer());
+            localRegistry.bind(serverNameList.get(i), serverList.get(i));
+          }
         } else if (consistency.equals("readyourwrite")) {
 
             // Server0 is the coordinator
@@ -36,15 +41,17 @@ public class StartServer {
             for (int i=1; i<numberOfServers; i++) {
                 serverList.add(new ReadYourWriteServer(rmiIP, rmiPort, serverNameList.get(i), serverNameList ));
             }
+            for(int i=0; i<numberOfServers; i++) 
+              localRegistry.bind(serverNameList.get(i), serverList.get(i));
         } else{
             // Server0 is the coordinator
             serverList.add( new SequentialCoordinator(serverNameList));
             for (int i=1; i<numberOfServers; i++) {
                 serverList.add(new SequentialServer());
             }
+            for(int i=0; i<numberOfServers; i++) 
+              localRegistry.bind(serverNameList.get(i), serverList.get(i));
         }
-        for(int i=0; i<numberOfServers; i++) 
-          localRegistry.bind(serverNameList.get(i), serverList.get(i));
         System.out.println("servers started");
     }
 }

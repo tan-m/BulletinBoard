@@ -45,9 +45,9 @@ class QuorumCoordinator extends Coordinator
     @Override
   public void replicate(Article a) throws RemoteException {
     a.uID = getNextID();
-    for (int i = 0; i < nServers; i++ ) {
-      if (i == 0)
-        update(a);
+    for (int index = 0; index < writeQList.length; index++ ) {
+      int i = writeQList[index];
+      if (i == 0) update(a);
       else {
         try {
           ServerToServerInterface server = (ServerToServerInterface) 
@@ -61,4 +61,17 @@ class QuorumCoordinator extends Coordinator
       }
     }// end for of server list
   } // end replicate method 
+
+  // Implement the consensusChoose
+  public String consensusChoose(int id) throws RemoteException {
+    String content = null;
+    return content;
+  }
+
+  // Implement the consensusRead
+  public List<String> consensusRead() throws RemoteException {
+    List<String> titleList = null;
+    return titleList;
+  }
+
 }
