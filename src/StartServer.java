@@ -24,7 +24,7 @@ public class StartServer {
         }
 
         if (consistency.equals("quorum")) {
-          serverList.add( new QuorumCoordinator(serverNameList));
+          serverList.add( new QuorumCoordinator(numberOfServers));
           for (int i=1; i<numberOfServers; i++) 
             serverList.add(new QuorumServer());
         } else if (consistency.equals("readyourwrite")) {

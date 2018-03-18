@@ -6,14 +6,14 @@ import java.util.List;
 
 class QuorumCoordinator extends Coordinator 
                         implements QuorumCoordinatorInterface{
-  List<String> serverList;
+  int nServers;
   protected QuorumCoordinator() throws RemoteException {
     super();
   }
 
-  protected QuorumCoordinator(List<String> list) throws RemoteException {
+  protected QuorumCoordinator(int nServers) throws RemoteException {
     super();
-    this.serverList = list;
+    this.nServers = nServers;
   }
 
   public boolean post(Article article) throws RemoteException {
@@ -36,13 +36,13 @@ class QuorumCoordinator extends Coordinator
     @Override
   public void replicate(Article a) throws RemoteException {
     a.uID = getNextID();
-    for (String s : serverList) {
-      if (s.equals("Server0")) 
+    for (int i = 0; i < nServers; i++ ) {
+      if (i == 0)
         update(a);
       else {
         try {
           ServerToServerInterface server = (ServerToServerInterface) 
-          Naming.lookup ( "//" + rmiIP+":"+rmiPort+ "/" + s);
+          Naming.lookup ( "//" + rmiIP+":"+rmiPort+ "/Server" + i);
           server.update(a);
         } catch (NotBoundException e) {
           e.printStackTrace();
