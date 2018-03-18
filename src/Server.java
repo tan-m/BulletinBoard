@@ -52,13 +52,20 @@ public abstract class Server extends UnicastRemoteObject implements
 
       for( int i=0; i < size; i++) {
         Article article = articleHashMap.get(i);
-        String title = i + ". " + article.title;
+        String content = null;
+        if(article.title == null)
+          content = article.content.length()<10?
+                    article.content:article.content.substring(0,10);
+        else
+          content = article.title;
+        String title = i + ". " + content;
         while( article.parentID != -1) {
           title = "\t"+title;
           article = articleHashMap.get(article.parentID);
         }
         titleList.add(title);
       }
+      System.out.println("******************"+titleList.size());
 
       //run DFS
       int s = 0;
@@ -80,7 +87,7 @@ public abstract class Server extends UnicastRemoteObject implements
         }
       }
 
-      return dupTitle;
+      return titleList;
     }
 
   // Choose method takes an ID that returns the article to the client

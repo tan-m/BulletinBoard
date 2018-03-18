@@ -31,6 +31,7 @@ public class Client {
 
 //Have an Infinite loop process which performs the actions on the server
   void performAction() throws InterruptedException, InputMismatchException, RemoteException {
+    Scanner scanner = new Scanner(System.in);
     while(true) {
       //pick a random server to connect to and perform the chosen action
       int server = new Random().nextInt(nServers);
@@ -40,7 +41,6 @@ public class Client {
       " to an article\nAny other option disconnects the client\n\nPick one" +
       " number between 1-4: ");
       
-      Scanner scanner = new Scanner(System.in);
       int choice = scanner.nextInt();
       if( choice > 0 && choice < 5) 
         switch(choice) {
@@ -54,6 +54,10 @@ public class Client {
             break;
           case 2:
             System.out.println("Reading list of articles");
+            List<String> titleList = serverList.get(server).read();
+            int size = titleList.size();
+            for(int i=0; i < size; i++)
+              System.out.println(titleList.get(i));
             break;
           case 3:
             System.out.println("Choosing an article, enter a positive integer"+
