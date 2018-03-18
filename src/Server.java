@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.LinkedList;
 import java.util.Map;
-import java.util.Stack;
+import java.util.Queue;
 import java.util.Iterator;
 
 public abstract class Server extends UnicastRemoteObject implements 
@@ -46,48 +46,45 @@ public abstract class Server extends UnicastRemoteObject implements
     public List<String> read() throws RemoteException {
       int size = articleHashMap.size();
       List<String> titleList = new LinkedList<String>();
-      List<String> dupTitle = new LinkedList<String>();
+      List<String> dupList = new LinkedList<String>();
+      LinkedList<Integer>queue = new LinkedList<Integer>();
       boolean[] visited = new boolean[size];
-      Stack<Integer> stack = new Stack<>();
 
       for( int i=0; i < size; i++) {
         Article article = articleHashMap.get(i);
         String content = null;
-        if(article.title == null)
+        String title = i + ". ";
+        if(article.title == null) {
           content = article.content.length()<10?
                     article.content:article.content.substring(0,10);
-        else
+          title = title + content;
+        } else {
+          visited[i] = true; 
           content = article.title;
-        String title = i + ". " + content;
+          title = title + content;
+          queue.add(i);
+        }
         while( article.parentID != -1) {
           title = "\t"+title;
           article = articleHashMap.get(article.parentID);
         }
         titleList.add(title);
       }
-      System.out.println("******************"+titleList.size());
 
-      //run DFS
-      int s = 0;
-      stack.push(s);
-      while(stack.empty() == false) {
-        s = stack.peek();
-        stack.pop();
-
-        if(visited[s] == false) {
-          dupTitle.add(titleList.get(s));
-          visited[s] = true;
-        }
-
+      while( queue.size() != 0 ) {
+        int s = queue.poll();
+        dupList.add(titleList.get(s));
         Iterator<Integer> itr = articleHashMap.get(s).childList.iterator();
         while (itr.hasNext()) {
           int v = itr.next();
-          if( !visited[v])
-            stack.push(v);
+          if( !visited[v]) {
+            visited[v] = true;
+            queue.push(v);
+            //dupList.add(titleList.get(v));
+          }
         }
       }
-
-      return titleList;
+      return dupList;
     }
 
   // Choose method takes an ID that returns the article to the client
