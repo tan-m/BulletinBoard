@@ -30,7 +30,8 @@ public class Client {
   }
 
 //Have an Infinite loop process which performs the actions on the server
-  void performAction() throws InterruptedException, InputMismatchException, RemoteException {
+  void performAction() throws InterruptedException, InputMismatchException, 
+                              RemoteException {
     Scanner scanner = new Scanner(System.in);
     while(true) {
       //pick a random server to connect to and perform the chosen action
@@ -52,21 +53,33 @@ public class Client {
             serverList.get(server).post(article.substring(0,10), 
                                         article.substring(10));
             break;
-          case 2:
+            
+          case 2: //Read
             System.out.println("Reading list of articles");
             List<String> titleList = serverList.get(server).read();
+            scanner = new Scanner(System.in);
             int size = titleList.size();
-            for(int i=0; i < size; i++)
+            int paging = 5;
+            
+            for(int i=0; i < size; i++) {
               System.out.println(titleList.get(i));
+              if( i % paging == paging -1 || i == size-1) {
+                System.out.println("\n-------------------------\n"+
+                "Press any key to continue\n-------------------------");
+                String line = scanner.nextLine();
+              }
+            }
             break;
-          case 3:
+
+          case 3: // Choose
             System.out.println("Choosing an article, enter a positive integer"+
               " that is within bounds");
             int printArticle = scanner.nextInt();
             String content = serverList.get(server).choose(printArticle);
             System.out.println(content);
             break;
-          case 4:
+
+          case 4: // Reply
             System.out.println("Replying to an article, enter a number and a"+
             " string, which is the parent and content of the reply" );
             int parent = scanner.nextInt();
