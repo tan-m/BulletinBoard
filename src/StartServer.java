@@ -5,13 +5,19 @@ import java.util.List;
 
 public class StartServer {
     public static void main(String args[]) throws Exception {
+        String consistency = null; 
+        int numberOfServers = 0;
 
         if (args.length != 2) {
-            System.err.println("usage java <consistency> <number of servers>");
+          System.out.println("usage java <consistency> <number of servers>"+
+          "\n using 3 servers and sequential consistency by default");
+          consistency = "sequential";
+          numberOfServers = 3;
+        } else {
+          consistency = args[0];
+          numberOfServers = Integer.parseInt(args[1]);
         }
 
-        String consistency = args[0];
-        int numberOfServers = Integer.parseInt(args[1]);
         if( numberOfServers <= 1)
           numberOfServers = 3;
         String rmiIP = "127.0.0.1";

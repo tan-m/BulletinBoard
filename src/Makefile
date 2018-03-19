@@ -10,7 +10,6 @@ CLASSES = \
 	ClientInterface.java \
 	Server.java \
 	StartServer.java \
-	IPAndPort.java \
 	Coordinator.java \
 	CoordinatorInterface.java 
 
