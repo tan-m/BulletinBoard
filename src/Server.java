@@ -46,7 +46,7 @@ public abstract class Server extends UnicastRemoteObject implements
       int size = articleHashMap.size();
       List<String> titleList = new LinkedList<String>();
       List<String> dupList = new LinkedList<String>();
-      LinkedList<Integer>queue = new LinkedList<Integer>();
+      LinkedList<Integer> queue = new LinkedList<Integer>();
       boolean[] visited = new boolean[size];
 
       // A better way would be to add a field in Article class and then track 
@@ -95,5 +95,29 @@ public abstract class Server extends UnicastRemoteObject implements
         System.out.println("Attempting to access values outside scope");
       return content;
     }
+
+  public String localChoose(int version, int id) throws RemoteException {
+    if( version > 0 )
+      return null;
+    else
+      return choose(id);
+  }
+
+  public List<String> localRead(int version) throws RemoteException {
+    if (version > 0 )
+      return null;
+    else
+      return read();
+  }
+
+  public boolean synchPast(Map<Integer,Article> articleHashMap)
+        throws RemoteException {
+    this.articleHashMap = articleHashMap;
+    return true;
+  }
+
+  public Map<Integer,Article> getHashMap() throws RemoteException {
+    return articleHashMap;
+  }
 
 }
