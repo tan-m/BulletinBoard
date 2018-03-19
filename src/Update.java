@@ -3,7 +3,7 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
-public class Temp {
+public class Update {
 
     public static void main (String args[]) {
         System.out.println("in main");

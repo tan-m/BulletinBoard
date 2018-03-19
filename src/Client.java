@@ -96,25 +96,6 @@ public class Client {
     }
   }
 
-  void test () {
-
-    try {
-
-
-      serverList.get(0).post("Chilling", "wassup ");
-      System.out.println("returned from post call");
-
-
-    } catch (RemoteException e) {
-      e.printStackTrace();
-    }
-
-  }
-
-
-
-
-
 // Start the clients
   public static void main(String args[]) {
     if(args.length != 1) {
@@ -125,7 +106,6 @@ public class Client {
     c.startClient();
 
     try {
-      //c.test();
       c.performAction();
     } catch(InterruptedException e) {
       e.printStackTrace();
@@ -136,5 +116,4 @@ public class Client {
     }
 
   }
-
 }
