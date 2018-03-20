@@ -16,7 +16,23 @@ public class TestClient {
       nServers = Integer.parseInt(args[0]);
     startClient(nServers);
     Random random = new Random();
-    for( int i = 0; i< 100;i++);
+    for( int i = 0; i< 100; i++){
+      int choice = random.nextInt(1)+1;
+      int server = random.nextInt(nServers);
+      switch(choice) {
+        case 1: 
+          String article = random.nextInt(500) + "ggggggggggggggggggggg";
+          serverList.get(server).post(article.substring(0,10), 
+                                        article.substring(10));
+          break;
+        case 2:
+          String content = random.nextInt(500) + "";
+          int parent = random.nextInt(i);
+          serverList.get(server).reply(parent, content);
+          break;
+      }
+      Thread.sleep(100);
+    }
   }
 
 //Perform initiation of the client by checking if all servers could be reached
