@@ -1,5 +1,6 @@
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 import java.rmi.Naming;
 import java.util.Random;
 import java.rmi.NotBoundException;
@@ -82,6 +83,8 @@ class QuorumCoordinator extends Coordinator
   // Implement the consensusChoose
   public String consensusChoose(int id) throws RemoteException {
     String content = null;
+    Map<String,Integer> contentMap = new HashMap<String,Integer>();
+
     int uID = readID();
     //Check if the ID requesting is within bounds of ID
     if(id > uID || id < 0 )
@@ -89,13 +92,18 @@ class QuorumCoordinator extends Coordinator
 
     for( int i = 0 ; i < readQList.length; i++) {
       int s = readQList[i];
-      if( s == 0 )  
+      if( s == 0 )  {
         content = choose(id);
-      else 
+        contentMap.put(content,1);
+      } else 
         try {
           ServerToServerInterface server = (ServerToServerInterface) 
           Naming.lookup ( "//" + rmiIP+":"+rmiPort+ "/Server" + s);
           String localContent = server.localChoose(uID, id);
+          if (contentMap.containsKey(localContent))
+            contentMap.put(localContent, contentMap.get(localContent) + 1);
+          else
+            contentMap.put(localContent, 1);
         } catch (NotBoundException e) {
           e.printStackTrace();
         } catch (MalformedURLException e) {
@@ -121,6 +129,8 @@ class QuorumCoordinator extends Coordinator
           ServerToServerInterface server = (ServerToServerInterface) 
           Naming.lookup ( "//" + rmiIP+":"+rmiPort+ "/Server" + s);
           List<String> tList = server.localRead(readID());
+          if(tList.size() > titleList.size())
+            titleList = tList;
         } catch (NotBoundException e) {
           e.printStackTrace();
         } catch (MalformedURLException e) {
