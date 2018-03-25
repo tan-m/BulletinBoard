@@ -1,11 +1,11 @@
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
 import java.rmi.Naming;
 import java.util.Random;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.net.MalformedURLException;
+import java.util.concurrent.ConcurrentHashMap;
 
 class QuorumCoordinator extends Coordinator 
                         implements QuorumCoordinatorInterface {
@@ -83,7 +83,7 @@ class QuorumCoordinator extends Coordinator
   // Implement the consensusChoose
   public String consensusChoose(int id) throws RemoteException {
     String content = null;
-    Map<String,Integer> contentMap = new HashMap<String,Integer>();
+    Map<String,Integer> contentMap = new ConcurrentHashMap<String,Integer>();
 
     int uID = readID();
     //Check if the ID requesting is within bounds of ID
@@ -109,7 +109,7 @@ class QuorumCoordinator extends Coordinator
         } catch (MalformedURLException e) {
           e.printStackTrace();
         } catch( Exception e) {
-          System.out.println("Haven't updated the server yet");
+
         }
     } // end the read quorum
 
@@ -136,7 +136,7 @@ class QuorumCoordinator extends Coordinator
         } catch (MalformedURLException e) {
           e.printStackTrace();
         } catch( Exception e) {
-          System.out.println("Haven't updated the server yet");
+          
         }
     } // end the read quorum
 
