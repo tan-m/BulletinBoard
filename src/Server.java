@@ -1,11 +1,12 @@
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.HashMap;
+//import java.util.HashMap;
 import java.util.List;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Iterator;
+import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class Server extends UnicastRemoteObject implements 
                              ClientInterface, ServerToServerInterface {
@@ -16,7 +17,7 @@ public abstract class Server extends UnicastRemoteObject implements
 
     protected Server() throws RemoteException {
         super();
-        articleHashMap = new HashMap<>();
+        articleHashMap = new ConcurrentHashMap<>();
     }
 
 
@@ -24,7 +25,7 @@ public abstract class Server extends UnicastRemoteObject implements
       super();
       this.rmiIP = rmiIP;
       this.rmiPort = rmiPort;
-      articleHashMap = new HashMap<>();
+      articleHashMap = new ConcurrentHashMap<>();
     }
 
     public void update(Article a) throws RemoteException {
